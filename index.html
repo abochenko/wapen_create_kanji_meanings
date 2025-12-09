@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Name Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>Japanese Name Generator</h1>
+
+    <div id="personsContainer">
+        <div class="person-group" id="personGroup1">
+            <h2>Person 1</h2>
+            <label for="alphabeticalName1">Alphabetical Name (A):</label>
+            <input type="text" id="alphabeticalName1" placeholder="e.g., MICHEL">
+            <div class="segments-container" id="segmentsContainer1">
+                <div class="segment-pair" id="segmentPair1_1">
+                    <label for="alphabeticalSegment1_1">Segment (B):</label>
+                    <input type="text" id="alphabeticalSegment1_1" placeholder="e.g., MI">
+                    <label for="kanjiInput1_1">Kanji (C):</label>
+                    <input type="text" id="kanjiInput1_1" placeholder="e.g., 舞">
+                    <div id="kanjiMeaningDisplay1_1" class="typed-kanji-meaning"></div>
+                </div>
+            </div>
+            <button class="add-segment-btn" data-person-id="1">Add Segment</button>
+            <button class="remove-segment-btn" data-person-id="1">Remove Segment</button>
+        </div>
+    </div>
+
+    <button id="addPersonBtn">Add Person</button>
+    <button id="removePersonBtn">Remove Last Person</button>
+
+    <div class="controls">
+        <label for="languageSelect">Display Kanji Meanings In:</label>
+        <select id="languageSelect">
+            <option value="JP">Japanese (日本語)</option>
+            <option value="EN" selected>English</option>
+            <option value="FR">French (Français)</option>
+            <option value="DE">German (Deutsch)</option>
+            <option value="IT">Italian (Italiano)</option>
+            <option value="ES">Spanish (Español)</option>
+            <option value="TL">Tagalog</option>
+            <option value="PT">Portuguese (Português)</option>
+            <option value="TR">Turkish (Türkçe)</option>
+            <option value="AR">Arabic (العربية)</option>
+            <option value="SV">Swedish (Svenska)</option>
+            <option value="NL">Dutch (Nederlands)</option>
+            <option value="PL">Polish (Polski)</option>
+            <option value="NO">Norwegian (Norsk)</option>
+            <option value="HU">Hungarian (Magyar)</option>
+            <option value="HE">Hebrew (עברית)</option>
+            <option value="RU">Russian (Русский)</option>
+            <option value="LT">Lithuanian (Lietuvių)</option>
+        </select>
+        <button id="generateNameBtn">Generate Kanji Name</button>
+    </div>
+</body>
+</html>
+
+print("Updated index.html with expanded language selection options.")

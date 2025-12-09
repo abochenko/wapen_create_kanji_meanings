@@ -1,0 +1,217 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    color: #0056b3;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.person-group {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+}
+
+.person-group h2 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.add-segment-btn, .remove-segment-btn {
+    background-color: #28a745;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.add-segment-btn:hover, .remove-segment-btn:hover {
+    background-color: #218838;
+}
+
+.remove-segment-btn {
+    background-color: #dc3545;
+}
+
+.remove-segment-btn:hover {
+    background-color: #c82333;
+}
+
+.segments-container {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #eee;
+}
+
+.segment-pair {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.segment-pair label {
+    grid-column: 1 / 2;
+    margin-bottom: 0;
+}
+
+.segment-pair input[type="text"] {
+    grid-column: 2 / 3;
+    width: calc(100% - 10px); /* Adjust for padding/gap */
+    margin-bottom: 0;
+}
+
+.typed-kanji-meaning {
+    grid-column: 1 / 3; /* Span across both columns */
+    font-size: 0.8em;
+    color: #666;
+    margin-top: -10px; /* Adjust spacing */
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.controls {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.controls label, .controls select, .controls button {
+    margin: 5px;
+}
+
+/* Print specific styles for the results page */
+@media print {
+    body {
+        background-color: white;
+        margin: 0;
+        padding: 0;
+        font-size: 12pt;
+        color: black;
+    }
+
+    h1 {
+        color: black;
+        text-align: center;
+        padding: 10px 0;
+        margin: 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    /* Hide all main input UI elements */
+    #personsContainer,
+    #addPersonBtn,
+    #removePersonBtn,
+    .controls,
+    .add-segment-btn,
+    .remove-segment-btn,
+    .typed-kanji-meaning { /* Hide meaning in print on input page if it ever shows */
+        display: none !important;
+    }
+
+    /* Results page specific elements */
+    .results-container { /* This targets the container on the results page */
+        box-shadow: none;
+        border: none;
+        padding: 20px;
+        margin-top: 0;
+    }
+
+    .generated-name-result {
+        border: 1px solid #eee;
+        page-break-inside: avoid; /* Avoid breaking results across pages */
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+
+    .generated-name-result h2 {
+        font-size: 1.5em;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .kanji-segments-area {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .segment-kanji-pair {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .display-segment {
+        font-size: 0.9em;
+        color: #888;
+    }
+
+    .display-kanji {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .display-meaning {
+        font-size: 0.9em;
+        color: #555;
+    }
+
+    .close-button-container { /* Hide the close button in print */
+        display: none !important;
+    }
+
+}
+
+print("Updated style.css for new input fields and print-friendly layout.")
