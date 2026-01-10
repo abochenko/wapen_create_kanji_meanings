@@ -10,7 +10,7 @@
         body {
             font-family: sans-serif;
             margin: 0;
-            background-color: white; /* Changed from #f4f4f4 to white */
+            background-color: white; /* 背景色を白に変更 */
             color: #333;
             min-height: 100vh; /* Ensures body takes full viewport height */
             display: flex;
@@ -27,7 +27,7 @@
             color: white;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: none; /* 影を削除 */
         }
         header h1 {
             margin: 0;
@@ -40,10 +40,11 @@
             margin: 20px auto; /* 左右中央寄せ */
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: none; /* 影を削除 */
         }
         footer {
-            min-height: 40vh; /* Changed from 30vh to 40vh */
+            min-height: auto; /* 高さを自動調整し、画像が切れないように変更 */
+            height: 40vh; /* フッターの高さを指定 */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
             background-size: cover;
             background-position: center;
@@ -53,16 +54,17 @@
             color: white;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: none; /* 影を削除 */
             margin-top: auto; /* Push footer to the bottom */
         }
 
         /* Result display styles */
         .generated-name-result {
-            /* Removed border-bottom: 1px solid #eee; */
+            border-bottom: none; /* 不要な枠線を削除 */
             padding-bottom: 15px;
             margin-bottom: 15px;
             text-align: center;
+            box-shadow: none; /* 影を削除 */
         }
         .generated-name-result:last-child {
             border-bottom: none;
@@ -76,27 +78,28 @@
         }
         .kanji-segments-area {
             display: flex;
-            flex-wrap: wrap; /* スマートフォンでスクロールなしで1画面に収まるように (horizontal wrapping) */
-            justify-content: center;
-            gap: 15px; /* 各セグメント間のスペース */
+            flex-direction: column; /* セグメント自体を縦に並べる */
+            align-items: center; /* セグメントを中央揃え */
+            gap: 20px; /* 各セグメント間のスペース */
             margin-bottom: 20px;
         }
         .segment-kanji-pair {
             display: flex;
-            flex-direction: column;
+            flex-direction: row; /* セグメントの中身を横一列に表示 */
+            justify-content: center; /* 中身を中央揃え */
             align-items: center;
             padding: 10px;
-            /* Removed border: 1px solid #ddd; and background-color: #f9f9f9; */
-            /* border-radius: 5px; */
-            flex: 0 0 auto; /* Allow items to shrink but not grow excessively */
+            border: none; /* 不要な枠線を削除 */
+            background-color: transparent; /* 背景色を透明に */
+            box-shadow: none; /* 影を削除 */
+            border-radius: 5px;
+            flex: 0 0 auto;
             min-width: 120px; /* 各セグメントの最小幅 */
-            max-width: 200px; /* 各セグメントの最大幅 */
+            max-width: 90%; /* スマートフォン対応のため最大幅を設定 */
         }
-        .display-segment { font-size: 1em; color: #888; margin-bottom: 5px; }
-        .display-kanji { font-size: 2.5em; font-weight: bold; color: #0056b3; margin-bottom: 5px; }
+        .display-segment { font-size: 1em; color: #888; margin-right: 10px; } /* 横並びのため調整 */
+        .display-kanji { font-size: 2.5em; font-weight: bold; color: #0056b3; margin-right: 10px; } /* 横並びのため調整 */
         .display-meaning { font-size: 1em; color: #666; }
-
-        /* Close button is removed from HTML, so its style is not needed */
 
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
@@ -104,6 +107,7 @@
             header, footer { min-height: 20vh; /* Smaller height for smaller screens */}
             .generated-name-result h2 { font-size: 1.8em; }
             .display-kanji { font-size: 2.2em; }
+            .segment-kanji-pair { flex-direction: column; /* 小さい画面では縦積みに戻すか、調整 */}
         }
         @media (max-width: 480px) {
             header h1 { font-size: 1.5em; }
