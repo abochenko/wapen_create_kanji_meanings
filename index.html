@@ -10,28 +10,6 @@
 <body>
     <h1>Japanese Name Generator</h1>
 
-    <div id="personsContainer">
-        <div class="person-group" id="personGroup1">
-            <h2>Person 1</h2>
-            <label for="alphabeticalName1">Alphabetical Name (A):</label>
-            <input type="text" id="alphabeticalName1" placeholder="e.g., MICHEL">
-            <div class="segments-container" id="segmentsContainer1">
-                <div class="segment-pair" id="segmentPair1_1">
-                    <label for="alphabeticalSegment1_1">Segment (B):</label>
-                    <input type="text" id="alphabeticalSegment1_1" placeholder="e.g., MI">
-                    <label for="kanjiInput1_1">Kanji (C):</label>
-                    <input type="text" id="kanjiInput1_1" placeholder="e.g., 舞">
-                    <div id="kanjiMeaningDisplay1_1" class="typed-kanji-meaning"></div>
-                </div>
-            </div>
-            <button class="add-segment-btn" data-person-id="1">Add Segment</button>
-            <button class="remove-segment-btn" data-person-id="1">Remove Segment</button>
-        </div>
-    </div>
-
-    <button id="addPersonBtn">Add Person</button>
-    <button id="removePersonBtn">Remove Last Person</button>
-
     <div class="controls">
         <label for="languageSelect">Display Kanji Meanings In:</label>
         <select id="languageSelect">
@@ -56,7 +34,21 @@
         </select>
         <button id="generateNameBtn">Generate Kanji Name</button>
     </div>
+
+    <div class="person-group" id="personGroup1">
+        <label for="alphabeticalName1">Alphabetical Name (A):</label>
+        <input type="text" id="alphabeticalName1" placeholder="e.g., MICHEL">
+        <div class="segments-container" id="segmentsContainer1">
+            <div class="segment-pair" id="segmentPair1_1">
+                <label for="alphabeticalSegment1_1">Segment (B):</label>
+                <input type="text" id="alphabeticalSegment1_1" placeholder="e.g., MI">
+                <label for="kanjiInput1_1">Kanji (C):</label>
+                <input type="text" id="kanjiInput1_1" placeholder="e.g., 舞">
+                <div id="kanjiMeaningDisplay1_1" class="typed-kanji-meaning"></div>
+            </div>
+        </div>
+        <button class="add-segment-btn" data-person-id="1">Add Segment</button>
+        <button class="remove-segment-btn" data-person-id="1">Remove Segment</button>
+    </div>
 </body>
 </html>
-
-print("Updated index.html with expanded language selection options.")
