@@ -10,7 +10,7 @@
         body {
             font-family: sans-serif;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: white; /* Changed from #f4f4f4 to white */
             color: #333;
             min-height: 100vh; /* Ensures body takes full viewport height */
             display: flex;
@@ -43,7 +43,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         footer {
-            min-height: 30vh; /* フッターは画面下部約30%の高さ */
+            min-height: 40vh; /* Changed from 30vh to 40vh */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
             background-size: cover;
             background-position: center;
@@ -59,7 +59,7 @@
 
         /* Result display styles */
         .generated-name-result {
-            /* 不要な枠線を削除 */
+            /* Removed border-bottom: 1px solid #eee; */
             padding-bottom: 15px;
             margin-bottom: 15px;
             text-align: center;
@@ -86,10 +86,8 @@
             flex-direction: column;
             align-items: center;
             padding: 10px;
-            /* 不要な枠線を削除 */
-            /* border: 1px solid #ddd; */
+            /* Removed border: 1px solid #ddd; and background-color: #f9f9f9; */
             /* border-radius: 5px; */
-            /* background-color: #f9f9f9; */
             flex: 0 0 auto; /* Allow items to shrink but not grow excessively */
             min-width: 120px; /* 各セグメントの最小幅 */
             max-width: 200px; /* 各セグメントの最大幅 */
