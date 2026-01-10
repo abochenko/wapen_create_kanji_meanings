@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Japanese Name Results</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="result_script.js"></script>
+    <style>
+        /* Styles specific to result.html */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #007bff; /* Example header color */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 960px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #333; /* Example footer color */
+            color: white;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: auto;
+        }
+        .generated-name-result {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .generated-name-result:last-child { border-bottom: none; margin-bottom: 0; }
+        .generated-name-result h2 { color: #007bff; margin-top: 0; margin-bottom: 20px; font-size: 2em; }
+        .kanji-segments-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .segment-kanji-pair {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            min-width: 120px;
+        }
+        .display-segment { font-size: 1em; color: #888; margin-bottom: 5px; }
+        .display-kanji { font-size: 2.5em; font-weight: bold; color: #0056b3; margin-bottom: 5px; }
+        .display-meaning { font-size: 1em; color: #666; }
+        .close-button-container {
+            text-align: center;
+            margin-top: 30px;
+            padding-bottom: 20px;
+        }
+        .close-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .close-button:hover { background-color: #c82333; }
+
+        @media print {
+            header, footer, .close-button-container { display: none !important; }
+            body { background-color: white; margin: 0; padding: 0; font-size: 12pt; color: black; }
+            main { box-shadow: none; border: none; padding: 0; margin: 0; max-width: none; }
+            h1 { color: black; text-align: center; padding: 10px 0; margin: 0; border-bottom: 1px solid #ccc; page-break-after: avoid; }
+            .generated-name-result { border: 1px solid #eee; page-break-inside: avoid; margin-bottom: 15px; padding: 10px; }
+            .kanji-segments-area { justify-content: flex-start; gap: 10px; }
+            .segment-kanji-pair { min-width: unset; border: none; background-color: transparent; padding: 0; }
+            .display-segment, .display-meaning { font-size: 0.9em; }
+            .display-kanji { font-size: 1.8em; color: #000; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Generated Japanese Names</h1>
+    </header>
+    <main id="resultsContainer">
+        <!-- Results will be injected here by result_script.js -->
+    </main>
+    <footer>
+        <div class="close-button-container">
+            <button class="close-button" onclick="window.close()">Close Page</button>
+        </div>
+    </footer>
+</body>
+</html>
+
+print("Created result.html with basic structure and styling for displaying generated names.")

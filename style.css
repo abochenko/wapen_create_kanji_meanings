@@ -11,7 +11,7 @@ h1 {
     margin-bottom: 30px;
 }
 
-.person-group {
+.mainInputArea { /* Changed from .person-group */
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -20,13 +20,7 @@ h1 {
     border: 1px solid #ddd;
 }
 
-.person-group h2 {
-    color: #007bff;
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
+/* Removed .person-group h2 as it's no longer needed for .mainInputArea */
 
 label {
     display: block;
@@ -129,89 +123,6 @@ button:hover {
     margin: 5px;
 }
 
-/* Print specific styles for the results page */
-@media print {
-    body {
-        background-color: white;
-        margin: 0;
-        padding: 0;
-        font-size: 12pt;
-        color: black;
-    }
+/* Removed @media print block from style.css as result.html now handles its own print styles inline */
 
-    h1 {
-        color: black;
-        text-align: center;
-        padding: 10px 0;
-        margin: 0;
-        border-bottom: 1px solid #ccc;
-    }
-
-    /* Hide all main input UI elements */
-    #personsContainer,
-    #addPersonBtn,
-    #removePersonBtn,
-    .controls,
-    .add-segment-btn,
-    .remove-segment-btn,
-    .typed-kanji-meaning { /* Hide meaning in print on input page if it ever shows */
-        display: none !important;
-    }
-
-    /* Results page specific elements */
-    .results-container { /* This targets the container on the results page */
-        box-shadow: none;
-        border: none;
-        padding: 20px;
-        margin-top: 0;
-    }
-
-    .generated-name-result {
-        border: 1px solid #eee;
-        page-break-inside: avoid; /* Avoid breaking results across pages */
-        margin-bottom: 20px;
-        padding: 15px;
-    }
-
-    .generated-name-result h2 {
-        font-size: 1.5em;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    .kanji-segments-area {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .segment-kanji-pair {
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-    }
-
-    .display-segment {
-        font-size: 0.9em;
-        color: #888;
-    }
-
-    .display-kanji {
-        font-size: 1.5em;
-        font-weight: bold;
-        color: #000;
-    }
-
-    .display-meaning {
-        font-size: 0.9em;
-        color: #555;
-    }
-
-    .close-button-container { /* Hide the close button in print */
-        display: none !important;
-    }
-
-}
-
-print("Updated style.css for new input fields and print-friendly layout.")
+print("Updated style.css to match new index.html structure and removed global print styles.")
