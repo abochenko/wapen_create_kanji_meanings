@@ -7,54 +7,78 @@
     <link rel="stylesheet" href="style.css">
     <script defer src="result_script.js"></script>
     <style>
-        /* Styles specific to result.html */
         body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: sans-serif;
             margin: 0;
             background-color: #f4f4f4;
+            color: #333;
+            min-height: 100vh; /* Ensures body takes full viewport height */
+            display: flex;
+            flex-direction: column; /* Stacks header, main, footer vertically */
         }
         header {
-            background-color: #007bff; /* Example header color */
+            min-height: 30vh; /* ヘッダーは画面上部約30%の高さ */
+            background-image: url('header_bg.jpg'); /* 背景画像 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
             text-align: center;
-            padding: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             margin: 0;
+            padding: 20px;
         }
         main {
-            flex: 1;
+            flex: 1; /* メインコンテンツが残りのスペースを埋める */
             padding: 20px;
             max-width: 960px;
-            margin: 20px auto;
+            margin: 20px auto; /* 左右中央寄せ */
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         footer {
-            background-color: #333; /* Example footer color */
+            min-height: 30vh; /* フッターは画面下部約30%の高さ */
+            background-image: url('footer_bg.jpg'); /* 背景画像 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
             text-align: center;
-            padding: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: auto;
+            margin-top: auto; /* Push footer to the bottom */
         }
+
+        /* Result display styles */
         .generated-name-result {
-            border-bottom: 1px solid #eee;
+            /* 不要な枠線を削除 */
             padding-bottom: 15px;
             margin-bottom: 15px;
             text-align: center;
         }
-        .generated-name-result:last-child { border-bottom: none; margin-bottom: 0; }
-        .generated-name-result h2 { color: #007bff; margin-top: 0; margin-bottom: 20px; font-size: 2em; }
+        .generated-name-result:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .generated-name-result h2 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
         .kanji-segments-area {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* スマートフォンでスクロールなしで1画面に収まるように (horizontal wrapping) */
             justify-content: center;
-            gap: 20px;
+            gap: 15px; /* 各セグメント間のスペース */
             margin-bottom: 20px;
         }
         .segment-kanji-pair {
@@ -62,38 +86,43 @@
             flex-direction: column;
             align-items: center;
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            min-width: 120px;
+            /* 不要な枠線を削除 */
+            /* border: 1px solid #ddd; */
+            /* border-radius: 5px; */
+            /* background-color: #f9f9f9; */
+            flex: 0 0 auto; /* Allow items to shrink but not grow excessively */
+            min-width: 120px; /* 各セグメントの最小幅 */
+            max-width: 200px; /* 各セグメントの最大幅 */
         }
         .display-segment { font-size: 1em; color: #888; margin-bottom: 5px; }
         .display-kanji { font-size: 2.5em; font-weight: bold; color: #0056b3; margin-bottom: 5px; }
         .display-meaning { font-size: 1em; color: #666; }
-        .close-button-container {
-            text-align: center;
-            margin-top: 30px;
-            padding-bottom: 20px;
-        }
-        .close-button {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .close-button:hover { background-color: #c82333; }
 
+        /* Close button is removed from HTML, so its style is not needed */
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            main { margin: 10px; padding: 15px; }
+            header, footer { min-height: 20vh; /* Smaller height for smaller screens */}
+            .generated-name-result h2 { font-size: 1.8em; }
+            .display-kanji { font-size: 2.2em; }
+        }
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5em; }
+            .generated-name-result h2 { font-size: 1.5em; }
+            .display-kanji { font-size: 2em; }
+            .segment-kanji-pair { min-width: 100px; max-width: 150px; } /* Adjust segment width */
+        }
+
+        /* Print specific styles */
         @media print {
-            header, footer, .close-button-container { display: none !important; }
             body { background-color: white; margin: 0; padding: 0; font-size: 12pt; color: black; }
+            header, footer { display: none !important; } /* Hide header/footer in print */
             main { box-shadow: none; border: none; padding: 0; margin: 0; max-width: none; }
             h1 { color: black; text-align: center; padding: 10px 0; margin: 0; border-bottom: 1px solid #ccc; page-break-after: avoid; }
             .generated-name-result { border: 1px solid #eee; page-break-inside: avoid; margin-bottom: 15px; padding: 10px; }
-            .kanji-segments-area { justify-content: flex-start; gap: 10px; }
-            .segment-kanji-pair { min-width: unset; border: none; background-color: transparent; padding: 0; }
+            .kanji-segments-area { justify-content: flex-start; gap: 10px; flex-wrap: wrap; }
+            .segment-kanji-pair { min-width: unset; border: none; background-color: transparent; padding: 0; flex: 0 0 auto; }
             .display-segment, .display-meaning { font-size: 0.9em; }
             .display-kanji { font-size: 1.8em; color: #000; }
         }
@@ -107,11 +136,9 @@
         <!-- Results will be injected here by result_script.js -->
     </main>
     <footer>
-        <div class="close-button-container">
-            <button class="close-button" onclick="window.close()">Close Page</button>
-        </div>
+        <!-- クローズボタンは削除されました -->
     </footer>
 </body>
 </html>
 
-print("Created result.html with basic structure and styling for displaying generated names.")
+print("Updated result.html with new layout, background images, responsive design, and removed unnecessary elements.")
