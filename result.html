@@ -17,14 +17,14 @@
             display: flex;
             flex-direction: column; /* Stacks header, main, footer vertically */
             box-sizing: border-box; /* Include padding in height calculation */
-            padding-top: 10vh;   /* 10% empty space at top */
-            padding-bottom: 10vh; /* 10% empty space at bottom */
+            padding-top: 20vh;   /* 20% empty space at top as requested */
+            padding-bottom: 0; /* No padding at bottom, total content area is 80vh */
         }
         header {
-            height: 24vh; /* Scaled from original 30vh to fit 80% content area (30*0.8=24) */
+            height: 20vh; /* Adjusted to fit within the 80vh content area */
             flex-shrink: 0; /* Prevent header from shrinking */
             background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: contain; /* 画像が切れないように表示 */
+            background-size: cover; /* 画像が切れても良いので領域全体を覆う */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -50,10 +50,10 @@
             box-shadow: none; /* 影を削除 */
         }
         footer {
-            height: 32vh; /* Scaled from original 40vh to fit 80% content area (40*0.8=32) */
+            height: 30vh; /* Adjusted to fit within the 80vh content area */
             flex-shrink: 0; /* Prevent footer from shrinking */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: contain; /* 画像が切れないように表示 */
+            background-size: cover; /* 画像が切れても良いので領域全体を覆う */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -111,19 +111,20 @@
 
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
-            /* For 80% content area (100vh - 20vh padding), original heights were 15vh and 20vh */
-            header { height: 12vh; /* Scaled 15vh * 0.8 = 12vh */} 
-            footer { height: 16vh; /* Scaled 20vh * 0.8 = 16vh */} 
+            /* Total usable height for content is 100vh - 20vh (top padding) = 80vh */
+            /* Header: 20vh (25% of 80vh), Footer: 30vh (37.5% of 80vh). Remaining for main: 30vh (37.5%) */
             main { margin: 10px; padding: 15px; }
+            header { height: 15vh; /* Adjusted for smaller screens, to take less vertical space */ }
+            footer { height: 20vh; /* Adjusted for smaller screens */ }
             .generated-name-result h2 { font-size: 1.8em; }
             .display-kanji { font-size: 2.2em; }
             .segment-kanji-pair { flex-direction: row; /* Ensure it stays horizontal on smaller screens */
             }
         }
         @media (max-width: 480px) {
-            /* For 80% content area, original heights were 10vh and 15vh */
-            header { height: 8vh; /* Scaled 10vh * 0.8 = 8vh */} 
-            footer { height: 12vh; /* Scaled 15vh * 0.8 = 12vh */} 
+            main { margin: 5px; padding: 10px; }
+            header { height: 10vh; /* Further adjusted for very small screens */ }
+            footer { height: 15vh; /* Further adjusted for very small screens */ }
             header h1 { font-size: 1.5em; }
             .generated-name-result h2 { font-size: 1.5em; }
             .display-kanji { font-size: 2em; }
