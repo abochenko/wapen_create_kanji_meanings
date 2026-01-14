@@ -17,11 +17,11 @@
             display: flex;
             flex-direction: column; /* Stacks header, main, footer vertically */
             box-sizing: border-box; /* Include padding in height calculation */
-            padding-top: 20vh;   /* 20% empty space at top as requested */
+            padding-top: 10vh;   /* 10% empty space at top as requested */
             padding-bottom: 10vh; /* 10% empty space at bottom as requested */
         }
         header {
-            height: 14vh; /* Adjusted to 20% of the 70vh content area (0.2 * 70vh) */
+            height: 16vh; /* Adjusted to 16% of viewport height */
             flex-shrink: 0; /* Prevent header from shrinking */
             background-image: url('header_bg.jpg'); /* 背景画像 */
             background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
@@ -41,7 +41,7 @@
         }
         main {
             flex: 1; /* メインコンテンツが残りのスペースを埋める */
-            overflow-y: hidden; /* Allow main content to scroll vertically if content overflows */
+            overflow-y: auto; /* Allow main content to scroll vertically if content overflows */
             padding: 20px;
             max-width: 960px;
             margin: 20px auto; /* 左右中央寄せ */
@@ -50,7 +50,7 @@
             box-shadow: none; /* 影を削除 */
         }
         footer {
-            height: 21vh; /* Adjusted to 30% of the 70vh content area (0.3 * 70vh) */
+            height: 24vh; /* Adjusted to 24% of viewport height */
             flex-shrink: 0; /* Prevent footer from shrinking */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
             background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
@@ -110,8 +110,8 @@
 
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
-            /* Total usable height for content is 100vh - (20vh + 10vh padding) = 70vh */
-            /* Header: approx 20% of 70vh, Footer: approx 30% of 70vh. */
+            /* For 100vh total, 10vh top padding, 10vh bottom padding. Remaining 80vh for header, main, footer. */
+            /* Header: 16vh, Footer: 24vh initially. That's 40vh of the 80vh remaining. */
             main { margin: 10px; padding: 15px; }
             header { height: 10vh; /* Adjusted for smaller screens */ }
             footer { height: 15vh; /* Adjusted for smaller screens */ }
