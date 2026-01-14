@@ -18,10 +18,10 @@
             flex-direction: column; /* Stacks header, main, footer vertically */
         }
         header {
-            height: 20vh; /* ヘッダーの高さを調整 (以前は30vh) */
+            height: 30vh; /* ヘッダーは画面上部約30%の高さ */
             flex-shrink: 0; /* Prevent header from shrinking */
             background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
+            background-size: contain; /* 横幅を画面に合わせてかならず横が全部表示されるように変更 */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -47,10 +47,11 @@
             box-shadow: none; /* 影を削除 */
         }
         footer {
-            height: 30vh; /* フッターの高さを調整 (以前は40vh) */
+            height: 40vh; /* フッターの最小高さを指定 */
             flex-shrink: 0; /* Prevent footer from shrinking */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
+            background-size: contain; /* 画像が切れないようにする */
+            background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
             align-items: center;
@@ -108,16 +109,16 @@
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             main { margin: 10px; padding: 15px; }
-            header { height: 8vh; /* Smaller height for smaller screens (以前は10vh) */} 
-            footer { height: 10vh; /* Smaller height for smaller screens (以前は15vh) */} 
+            header { height: 10vh; /* Smaller height for smaller screens */} 
+            footer { height: 15vh; /* Smaller height for smaller screens */} 
             .generated-name-result h2 { font-size: 1.8em; }
             .display-kanji { font-size: 2.2em; }
             .segment-kanji-pair { flex-direction: row; /* Ensure it stays horizontal on smaller screens */
             }
         }
         @media (max-width: 480px) {
-            header { height: 6vh; /* Even smaller height for very small screens (以前は8vh) */} 
-            footer { height: 8vh; /* Even smaller height for very small screens (以前は10vh) */} 
+            header { height: 8vh; /* Even smaller height for very small screens */} 
+            footer { height: 10vh; /* Even smaller height for very small screens */} 
             header h1 { font-size: 1.5em; }
             .generated-name-result h2 { font-size: 1.5em; }
             .display-kanji { font-size: 2em; }
