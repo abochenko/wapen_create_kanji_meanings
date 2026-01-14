@@ -107,7 +107,8 @@
             header, footer { min-height: 20vh; /* Smaller height for smaller screens */}
             .generated-name-result h2 { font-size: 1.8em; }
             .display-kanji { font-size: 2.2em; }
-            .segment-kanji-pair { flex-direction: column; /* 小さい画面では縦積みに戻すか、調整 */}
+            .segment-kanji-pair { flex-direction: row; /* Ensure it stays horizontal on smaller screens */
+            }
         }
         @media (max-width: 480px) {
             header h1 { font-size: 1.5em; }
@@ -123,8 +124,8 @@
             main { box-shadow: none; border: none; padding: 0; margin: 0; max-width: none; }
             h1 { color: black; text-align: center; padding: 10px 0; margin: 0; border-bottom: 1px solid #ccc; page-break-after: avoid; }
             .generated-name-result { border: 1px solid #eee; page-break-inside: avoid; margin-bottom: 15px; padding: 10px; }
-            .kanji-segments-area { justify-content: flex-start; gap: 10px; flex-wrap: wrap; }
-            .segment-kanji-pair { min-width: unset; border: none; background-color: transparent; padding: 0; flex: 0 0 auto; }
+            .kanji-segments-area { justify-content: flex-start; gap: 10px; flex-wrap: wrap; flex-direction: column; } /* Ensure column layout for segments in print */
+            .segment-kanji-pair { min-width: unset; border: none; background-color: transparent; padding: 0; flex: 0 0 auto; flex-direction: row; } /* Ensure row layout for content within segments in print */
             .display-segment, .display-meaning { font-size: 0.9em; }
             .display-kanji { font-size: 1.8em; color: #000; }
         }
