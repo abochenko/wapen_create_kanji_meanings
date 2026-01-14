@@ -10,18 +10,21 @@
         body {
             font-family: sans-serif;
             margin: 0;
-            background-color: white; /* Changed from #f4f4f4 to white */
+            background-color: white;
             color: #333;
             height: 100vh; /* Set body height to 100% of viewport height */
             overflow: hidden; /* Prevent body from scrolling */
             display: flex;
             flex-direction: column; /* Stacks header, main, footer vertically */
+            box-sizing: border-box; /* Include padding in height calculation */
+            padding-top: 10vh;   /* 10% empty space at top */
+            padding-bottom: 10vh; /* 10% empty space at bottom */
         }
         header {
-            height: 30vh; /* ヘッダーは画面上部約30%の高さ */
+            height: 24vh; /* Scaled from original 30vh to fit 80% content area (30*0.8=24) */
             flex-shrink: 0; /* Prevent header from shrinking */
             background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: contain; /* 横幅を画面に合わせてかならず横が全部表示されるように変更 */
+            background-size: contain; /* 画像が切れないように表示 */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -47,10 +50,10 @@
             box-shadow: none; /* 影を削除 */
         }
         footer {
-            height: 40vh; /* フッターの最小高さを指定 */
+            height: 32vh; /* Scaled from original 40vh to fit 80% content area (40*0.8=32) */
             flex-shrink: 0; /* Prevent footer from shrinking */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: contain; /* 画像が切れないようにする */
+            background-size: contain; /* 画像が切れないように表示 */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -108,17 +111,19 @@
 
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
+            /* For 80% content area (100vh - 20vh padding), original heights were 15vh and 20vh */
+            header { height: 12vh; /* Scaled 15vh * 0.8 = 12vh */} 
+            footer { height: 16vh; /* Scaled 20vh * 0.8 = 16vh */} 
             main { margin: 10px; padding: 15px; }
-            header { height: 10vh; /* Smaller height for smaller screens */} 
-            footer { height: 15vh; /* Smaller height for smaller screens */} 
             .generated-name-result h2 { font-size: 1.8em; }
             .display-kanji { font-size: 2.2em; }
             .segment-kanji-pair { flex-direction: row; /* Ensure it stays horizontal on smaller screens */
             }
         }
         @media (max-width: 480px) {
-            header { height: 8vh; /* Even smaller height for very small screens */} 
-            footer { height: 10vh; /* Even smaller height for very small screens */} 
+            /* For 80% content area, original heights were 10vh and 15vh */
+            header { height: 8vh; /* Scaled 10vh * 0.8 = 8vh */} 
+            footer { height: 12vh; /* Scaled 15vh * 0.8 = 12vh */} 
             header h1 { font-size: 1.5em; }
             .generated-name-result h2 { font-size: 1.5em; }
             .display-kanji { font-size: 2em; }
@@ -136,6 +141,7 @@
                 display: block; /* Override flex for print */
                 height: auto; /* Allow height to adjust for print */
                 overflow: visible; /* Allow content to flow for print */
+                padding: 0; /* Remove padding for print */
             }
             header, footer { display: none !important; } /* Hide header/footer in print */
             main {
