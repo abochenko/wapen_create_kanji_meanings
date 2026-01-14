@@ -19,7 +19,8 @@
         header {
             min-height: 30vh; /* ヘッダーは画面上部約30%の高さ */
             background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: cover;
+            background-size: contain; /* 横幅を画面に合わせてかならず横が全部表示されるように変更 */
+            background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
             align-items: center;
@@ -43,10 +44,9 @@
             box-shadow: none; /* 影を削除 */
         }
         footer {
-            min-height: auto; /* 高さを自動調整し、画像が切れないように変更 */
-            height: 40vh; /* フッターの高さを指定 */
+            min-height: 40vh; /* フッターの最小高さを指定 */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: cover;
+            background-size: cover; /* 画像をカバーするよう維持 */
             background-position: center;
             display: flex;
             align-items: center;
@@ -104,13 +104,16 @@
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             main { margin: 10px; padding: 15px; }
-            header, footer { min-height: 20vh; /* Smaller height for smaller screens */}
+            header { min-height: 10vh; /* Smaller height for smaller screens */}
+            footer { min-height: 15vh; /* Smaller height for smaller screens */}
             .generated-name-result h2 { font-size: 1.8em; }
             .display-kanji { font-size: 2.2em; }
             .segment-kanji-pair { flex-direction: row; /* Ensure it stays horizontal on smaller screens */
             }
         }
         @media (max-width: 480px) {
+            header { min-height: 8vh; /* Even smaller height for very small screens */}
+            footer { min-height: 10vh; /* Even smaller height for very small screens */}
             header h1 { font-size: 1.5em; }
             .generated-name-result h2 { font-size: 1.5em; }
             .display-kanji { font-size: 2em; }
