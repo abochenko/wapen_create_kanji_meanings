@@ -21,7 +21,7 @@
             height: 30vh; /* ヘッダーは画面上部約30%の高さ */
             flex-shrink: 0; /* Prevent header from shrinking */
             background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: contain; /* 横幅を画面に合わせてかならず横が全部表示されるように変更 */
+            background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -50,7 +50,7 @@
             height: 40vh; /* フッターの最小高さを指定 */
             flex-shrink: 0; /* Prevent footer from shrinking */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: cover; /* 画像をカバーするよう維持 */
+            background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
             background-position: center;
             display: flex;
             align-items: center;
@@ -108,16 +108,16 @@
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             main { margin: 10px; padding: 15px; }
-            header { height: 10vh; /* Smaller height for smaller screens */}
-            footer { height: 15vh; /* Smaller height for smaller screens */}
+            header { height: 10vh; /* Smaller height for smaller screens */} 
+            footer { height: 15vh; /* Smaller height for smaller screens */} 
             .generated-name-result h2 { font-size: 1.8em; }
             .display-kanji { font-size: 2.2em; }
             .segment-kanji-pair { flex-direction: row; /* Ensure it stays horizontal on smaller screens */
             }
         }
         @media (max-width: 480px) {
-            header { height: 8vh; /* Even smaller height for very small screens */}
-            footer { height: 10vh; /* Even smaller height for very small screens */}
+            header { height: 8vh; /* Even smaller height for very small screens */} 
+            footer { height: 10vh; /* Even smaller height for very small screens */} 
             header h1 { font-size: 1.5em; }
             .generated-name-result h2 { font-size: 1.5em; }
             .display-kanji { font-size: 2em; }
@@ -126,9 +126,26 @@
 
         /* Print specific styles */
         @media print {
-            body { background-color: white; margin: 0; padding: 0; font-size: 12pt; color: black; }
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+                font-size: 12pt;
+                color: black;
+                display: block; /* Override flex for print */
+                height: auto; /* Allow height to adjust for print */
+                overflow: visible; /* Allow content to flow for print */
+            }
             header, footer { display: none !important; } /* Hide header/footer in print */
-            main { box-shadow: none; border: none; padding: 0; margin: 0; max-width: none; }
+            main {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+                max-width: none;
+                width: 100%;
+                overflow-y: visible; /* Allow content to flow for print */
+            }
             h1 { color: black; text-align: center; padding: 10px 0; margin: 0; border-bottom: 1px solid #ccc; page-break-after: avoid; }
             .generated-name-result { border: 1px solid #eee; page-break-inside: avoid; margin-bottom: 15px; padding: 10px; }
             .kanji-segments-area { justify-content: flex-start; gap: 10px; flex-wrap: wrap; flex-direction: column; } /* Ensure column layout for segments in print */
@@ -150,5 +167,3 @@
     </footer>
 </body>
 </html>
-
-print("Updated result.html with new layout, background images, responsive design, and removed unnecessary elements.")
