@@ -1,7 +1,5 @@
-// Global variable to store kanji data
 let kanjiMeanings = [];
 
-// Function to load and parse the CSV file
 async function loadKanjiMeanings() {
     try {
         const response = await fetch('kanji_meanings.csv');
@@ -17,64 +15,63 @@ async function loadKanjiMeanings() {
             });
             return obj;
         });
-        console.log('Kanji meanings loaded:', kanjiMeanings.length);
     } catch (error) {
-        console.error('Error loading kanji_meanings.csv:', error);
+        console.error('CSV Load Error:', error);
     }
 }
 
-// Helper to get kanji meaning
 function getMeaningFromKanjiEntry(kanjiEntryObj, langCode) {
     if (!kanjiEntryObj) return 'N/A';
     const meaningKey = `Meaning_${langCode}`;
     return kanjiEntryObj[meaningKey] || kanjiEntryObj.Meaning_EN || 'N/A';
 }
 
-// Function to render the results
 async function renderResults() {
     await loadKanjiMeanings();
 
-    const storedData = localStorage.getItem('kanjiPersonalizationState');
+    // script.jsの54行目付近で保存されている名前に合わせる
+    const rawData = localStorage.getItem('kanjiGeneratorData');
     const resultsContainer = document.getElementById('resultsContainer');
 
-    if (storedData) {
-        const personState = JSON.parse(storedData);
-        const selectedLanguage = localStorage.getItem('selectedLanguage') || 'EN';
+    if (rawData) {
+        const { personState, selectedLanguage } = JSON.parse(rawData);
         
         let tableRowsHtml = '';
 
-        personState.segments.forEach(seg => {
-            const typedKanji = seg.kanji;
-            let kanjiEntry = kanjiMeanings.find(entry => entry.Kanji === typedKanji);
-            const meaningText = getMeaningFromKanjiEntry(kanjiEntry, selectedLanguage);
+        if (personState && personState.segments) {
+            personState.segments.forEach(seg => {
+                // script.jsのプロパティ名 'typedKanji' を使用
+                const kanji = seg.typedKanji; 
+                let kanjiEntry = kanjiMeanings.find(entry => entry.Kanji === kanji);
+                const meaningText = getMeaningFromKanjiEntry(kanjiEntry, selectedLanguage);
 
-            // シンプルな行構造（CSSで幅を制御）
-            tableRowsHtml += `
-                <tr>
-                    <td class="segment-cell">${seg.alphabetical || ''}</td>
-                    <td class="kanji-cell">${typedKanji || '??'}</td>
-                    <td class="meaning-cell">${meaningText}</td>
-                </tr>
-            `;
-        });
-
-        resultsContainer.innerHTML = `
-            <h2>${personState.alphabeticalName}</h2>
-            <table class="kanji-segments-table">
-                <thead>
+                tableRowsHtml += `
                     <tr>
-                        <th>Alpha</th>
-                        <th>Kanji</th>
-                        <th>Meaning</th>
+                        <td class="segment-cell">${seg.alphabetical || ''}</td>
+                        <td class="kanji-cell">${kanji || '??'}</td>
+                        <td class="meaning-cell">${meaningText}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    ${tableRowsHtml}
-                </tbody>
-            </table>
-        `;
+                `;
+            });
+
+            resultsContainer.innerHTML = `
+                <h2>${personState.alphabeticalName || 'Japanese Name'}</h2>
+                <table class="kanji-segments-table">
+                    <thead>
+                        <tr>
+                            <th>Alpha</th>
+                            <th>Kanji</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRowsHtml}
+                    </tbody>
+                </table>
+            `;
+        }
     } else {
-        resultsContainer.innerHTML = '<p>No data found.</p>';
+        resultsContainer.innerHTML = '<p style="text-align:center;">No data found. Please generate a name first.</p>';
     }
 }
 
