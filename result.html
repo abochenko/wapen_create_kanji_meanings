@@ -2,231 +2,109 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Generated Japanese Name Results</title>
-    <link rel="stylesheet" href="style.css">
     <script defer src="result_script.js"></script>
     <style>
-        body {
-            font-family: sans-serif;
-            margin: 0; /* Remove body padding */
-            background-color: white; /* Set body background to white */
-            color: #333;
-            height: 100vh; /* Fixed height for the entire viewport */
-            overflow: hidden; /* Prevent body from scrolling */
-            display: flex;
-            flex-direction: column; /* Stacks header, main, footer vertically */
-            box-sizing: border-box; /* Include padding in height calculation */
-            /* Removed padding-top and padding-bottom */
-        }
-        header {
-            height: 30vh; /* Fixed height for header */
-            flex-shrink: 0; /* Prevent header from shrinking */
-            background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: cover; /* Fill the area without distorting */
-            background-repeat: no-repeat; /* 繰り返しなし */
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            box-shadow: none; /* 影を削除 */
-        }
-        header h1 {
+        /* 全体のレイアウト設定 */
+        body, html {
             margin: 0;
-            padding: 20px;
-            display: block; /* Make h1 visible */
-        }
-        main {
-            flex: 1; /* メインコンテンツが残りのスペースを埋める */
-            overflow-y: auto; /* Allow main content to scroll vertically if content overflows */
-            padding: 20px;
-            max-width: 960px;
-            margin: 20px auto; /* 左右中央寄せ */
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: none; /* 影を削除 */
-        }
-        footer {
-            height: 40vh; /* Fixed height for footer */
-            flex-shrink: 0; /* Prevent footer from shrinking */
-            background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: cover; /* Fill the area without distorting */
-            background-position: center;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* スクロールを完全に禁止 */
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+            background-color: #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            box-shadow: none; /* 影を削除 */
-            margin-top: auto; /* Push footer to the bottom */
         }
 
-        /* Result display styles */
-        .generated-name-result {
-            border-bottom: none; /* Remove unnecessary border */
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-            text-align: center;
-            box-shadow: none; /* Remove shadow */
-        }
-        .generated-name-result:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-        .generated-name-result h2 {
-            color: #007bff;
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-        .kanji-segments-table { /* New table for segments */
+        /* 背景画像の設定（コンテンツの裏に回り込ませる） */
+        .bg-decoration {
+            position: absolute;
+            left: 0;
             width: 100%;
-            max-width: 360px; /* Fixed width for iPhone 15 display */
-            margin: 20px auto;
-            border-collapse: collapse;
-            table-layout: fixed; /* Ensures column widths are respected */
-            padding: 0; /* Minimize padding */
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
         }
-        .kanji-segments-table th, .kanji-segments-table td {
-            padding: 8px; /* Minimize padding */
+
+        .header-bg {
+            top: 0;
+            height: 50vh; /* 画面上半分をカバー */
+            background-image: url('header_bg.jpg');
+        }
+
+        .footer-bg {
+            bottom: 0;
+            height: 50vh; /* 画面下半分をカバー */
+            background-image: url('footer_bg.jpg');
+        }
+
+        /* メインコンテンツ（背景の上に浮くカード形式） */
+        main {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 360px; /* iPhone 15の幅に最適化 */
+            background-color: rgba(255, 255, 255, 0.92); /* 背景を少し透かす */
+            padding: 20px 15px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+            backdrop-filter: blur(5px); /* 背景をぼかして高級感を出す */
+        }
+
+        h2 {
+            font-size: 1rem;
+            margin: 0 0 15px 0;
             text-align: center;
-            border: 1px solid #ddd;
+            color: #555;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
         }
+
+        /* テーブルの構造：スマホでも絶対に崩さない */
+        .kanji-segments-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* 列幅を固定 */
+        }
+
         .kanji-segments-table th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        .kanji-segments-table .segment-cell {
-            font-size: 1em;
+            background-color: #f8f8f8;
+            font-size: 0.7rem;
             color: #888;
-            width: 80px; /* Fixed width */
-        }
-        .kanji-segments-table .kanji-cell {
-            font-size: 2em;
-            font-weight: bold;
-            color: #0056b3;
-            width: 80px; /* Fixed width */
-        }
-        .kanji-segments-table .meaning-cell {
-            font-size: 1.1em;
-            color: #666;
-            text-align: left;
-            width: 200px; /* Fixed width */
-            word-wrap: break-word;
+            padding: 8px 2px;
+            text-transform: uppercase;
         }
 
-        /* Responsive adjustments for smaller screens */
-        @media (max-width: 768px) {
-            main { margin: 10px; padding: 15px; }
-            header { height: 20vh; /* Adjusted for smaller screens */ }
-            footer { height: 30vh; /* Adjusted for smaller screens */ }
-            .generated-name-result h2 { font-size: 1.8em; }
-            .kanji-segments-table { max-width: 95%; }
-            .kanji-segments-table .meaning-cell { width: auto; }
-        }
-        @media (max-width: 480px) {
-            main { margin: 5px; padding: 10px; }
-            header { height: 15vh; /* Further adjusted for very small screens */ }
-            footer { height: 20vh; /* Further adjusted for very small screens */ }
-            header h1 { font-size: 1.5em; }
-            .generated-name-result h2 { font-size: 1.5em; }
-            .kanji-segments-table {
-                max-width: 100%;
-                table-layout: auto; /* Allow table layout to adjust */
-            }
-            .kanji-segments-table th, .kanji-segments-table td {
-                display: block; /* Stack cells vertically */
-                width: 100%;
-                box-sizing: border-box;
-                text-align: left;
-            }
-            .kanji-segments-table th {
-                display: none; /* Hide table headers on very small screens */
-            }
-            /* Emulate data-label for accessibility on stacked cells */
-            .kanji-segments-table td:nth-of-type(1):before { content: "Alphabet: "; font-weight: bold; }
-            .kanji-segments-table td:nth-of-type(2):before { content: "Kanji: "; font-weight: bold; }
-            .kanji-segments-table td:nth-of-type(3):before { content: "Meaning: "; font-weight: bold; }
-            .kanji-segments-table .meaning-cell { width: auto; }
+        .kanji-segments-table td {
+            border-bottom: 1px solid #eee;
+            padding: 12px 2px;
+            text-align: center;
+            vertical-align: middle;
         }
 
-        /* Print specific styles */
-        @media print {
-            body {
-                background-color: white;
-                margin: 0;
-                padding: 0;
-                font-size: 12pt;
-                color: black;
-                display: block; /* Override flex for print */
-                height: auto; /* Allow height to adjust for print */
-                overflow: visible; /* Allow content to flow for print */
-            }
-            header, footer { display: none !important; } /* Hide header/footer in print */
-            main {
-                box-shadow: none;
-                border: none;
-                padding: 0;
-                margin: 0;
-                max-width: none;
-                width: 100%;
-                overflow-y: visible; /* Allow content to flow for print */
-            }
-            h1 { color: black; text-align: center; padding: 10px 0; margin: 0; border-bottom: 1px solid #ccc; page-break-after: avoid; }
-            .generated-name-result { border: 1px solid #eee; page-break-inside: avoid; margin-bottom: 15px; padding: 10px; }
-            .kanji-segments-table {
-                max-width: none;
-                border-collapse: collapse;
-                table-layout: auto; /* Adjust table layout for print */
-            }
-            .kanji-segments-table th, .kanji-segments-table td {
-                display: table-cell; /* Ensure table cell display in print */
-                width: auto; /* Allow width to adjust */
-                text-align: center;
-                border: 1px solid #ddd;
-            }
-            .kanji-segments-table .meaning-cell {
-                text-align: left; /* Maintain left alignment for meaning */
-                width: 200px; /* Keep fixed width for meaning column in print if possible */
-                word-wrap: break-word;
-            }
-            .kanji-segments-table .kanji-cell {
-                font-size: 1.5em; /* Smaller font size for kanji in print */
-            }
-            .kanji-segments-table .segment-cell {
-                width: 60px; /* Smaller width for alphabet in print */
-            }
-            .kanji-segments-table td:before { content: none; } /* Hide pseudo elements for print */
+        /* 各列の幅を黄金比的に配分 */
+        .segment-cell { width: 22%; font-size: 0.85rem; color: #666; font-weight: bold; }
+        .kanji-cell { width: 28%; font-size: 1.6rem; font-weight: bold; color: #333; }
+        .meaning-cell { width: 50%; font-size: 0.75rem; text-align: left; color: #444; line-height: 1.3; }
+
+        /* iPhone15で1画面に収めるための調整 */
+        @media screen and (max-height: 852px) {
+            main { padding: 15px 10px; }
+            .kanji-cell { font-size: 1.4rem; }
+            .meaning-cell { font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Generated Japanese Names</h1>
-    </header>
+    <div class="bg-decoration header-bg"></div>
+    <div class="bg-decoration footer-bg"></div>
+
     <main id="resultsContainer">
-        <div class="generated-name-result">
-            <h2>Original Name: <!-- Injected by result_script.js --></h2>
-            <table class="kanji-segments-table" id="kanjiSegmentsTable">
-                <thead>
-                    <tr>
-                        <th>Alphabet</th>
-                        <th>Kanji</th>
-                        <th>Meaning</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Table rows will be injected here by result_script.js -->
-                </tbody>
-            </table>
-        </div>
-    </main>
-    <footer>
-        <!-- クローズボタンは削除されました -->
-    </footer>
+        </main>
 </body>
 </html>
