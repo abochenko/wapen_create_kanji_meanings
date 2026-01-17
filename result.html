@@ -9,10 +9,10 @@
     <style>
         body {
             font-family: sans-serif;
-            margin: 0;
-            background-color: white;
+            margin: 0; /* Remove body padding */
+            background-color: white; /* Set body background to white */
             color: #333;
-            height: 100vh; /* Set body height to 100% of viewport height */
+            height: 100vh; /* Fixed height for the entire viewport */
             overflow: hidden; /* Prevent body from scrolling */
             display: flex;
             flex-direction: column; /* Stacks header, main, footer vertically */
@@ -23,7 +23,7 @@
             height: 30vh; /* Fixed height for header */
             flex-shrink: 0; /* Prevent header from shrinking */
             background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: contain; /* 横幅を画面に合わせてかならず横が全部表示されるように維持 */
+            background-size: cover; /* Fill the area without distorting */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -37,6 +37,7 @@
         header h1 {
             margin: 0;
             padding: 20px;
+            display: block; /* Make h1 visible */
         }
         main {
             flex: 1; /* メインコンテンツが残りのスペースを埋める */
@@ -52,7 +53,7 @@
             height: 40vh; /* Fixed height for footer */
             flex-shrink: 0; /* Prevent footer from shrinking */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: cover; /* 画像をカバーするよう維持 */
+            background-size: cover; /* Fill the area without distorting */
             background-position: center;
             display: flex;
             align-items: center;
@@ -66,11 +67,11 @@
 
         /* Result display styles */
         .generated-name-result {
-            border-bottom: none; /* 不要な枠線を削除 */
+            border-bottom: none; /* Remove unnecessary border */
             padding-bottom: 15px;
             margin-bottom: 15px;
             text-align: center;
-            box-shadow: none; /* 影を削除 */
+            box-shadow: none; /* Remove shadow */
         }
         .generated-name-result:last-child {
             border-bottom: none;
@@ -82,7 +83,7 @@
             margin-bottom: 20px;
             font-size: 2em;
         }
-        .kanji-segments-table {
+        .kanji-segments-table { /* New table for segments */
             width: 100%;
             max-width: 360px; /* Fixed width for iPhone 15 display */
             margin: 20px auto;
@@ -193,6 +194,12 @@
                 width: 200px; /* Keep fixed width for meaning column in print if possible */
                 word-wrap: break-word;
             }
+            .kanji-segments-table .kanji-cell {
+                font-size: 1.5em; /* Smaller font size for kanji in print */
+            }
+            .kanji-segments-table .segment-cell {
+                width: 60px; /* Smaller width for alphabet in print */
+            }
             .kanji-segments-table td:before { content: none; } /* Hide pseudo elements for print */
         }
     </style>
@@ -202,7 +209,21 @@
         <h1>Generated Japanese Names</h1>
     </header>
     <main id="resultsContainer">
-        <!-- Results will be injected here by result_script.js -->
+        <div class="generated-name-result">
+            <h2>Original Name: <!-- Injected by result_script.js --></h2>
+            <table class="kanji-segments-table" id="kanjiSegmentsTable">
+                <thead>
+                    <tr>
+                        <th>Alphabet</th>
+                        <th>Kanji</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be injected here by result_script.js -->
+                </tbody>
+            </table>
+        </div>
     </main>
     <footer>
         <!-- クローズボタンは削除されました -->
