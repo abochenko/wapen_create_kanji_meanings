@@ -17,14 +17,13 @@
             display: flex;
             flex-direction: column; /* Stacks header, main, footer vertically */
             box-sizing: border-box; /* Include padding in height calculation */
-            padding-top: 5vh;   /* 10% empty space at top as requested */
-            padding-bottom: 3vh; /* 10% empty space at bottom as requested */
+            /* Removed padding-top and padding-bottom to allow header/footer to overlap main content */
         }
         header {
-            height: 10vh; /* Adjusted to 16% of viewport height */
+            height: 30vh; /* Fixed height for header */
             flex-shrink: 0; /* Prevent header from shrinking */
             background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
+            background-size: contain; /* 横幅を画面に合わせてかならず横が全部表示されるように維持 */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -36,8 +35,7 @@
             box-shadow: none; /* 影を削除 */
         }
         header h1 {
-            margin: 0;
-            padding: 20px;
+            display: none; /* Removed the title as requested */
         }
         main {
             flex: 1; /* メインコンテンツが残りのスペースを埋める */
@@ -50,10 +48,10 @@
             box-shadow: none; /* 影を削除 */
         }
         footer {
-            height: 10vh; /* Adjusted to 24% of viewport height */
+            height: 30vh; /* Fixed height for footer */
             flex-shrink: 0; /* Prevent footer from shrinking */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
+            background-size: cover; /* 画像をカバーするよう維持 */
             background-position: center;
             display: flex;
             align-items: center;
@@ -85,14 +83,15 @@
         }
         .kanji-segments-area {
             display: flex;
-            flex-direction: column; /* セグメント自体を縦に並べる */
-            align-items: center; /* セグメントを中央揃え */
+            flex-direction: row; /* セグメント自体を横に並べる */
+            flex-wrap: wrap; /* スマートフォンでスクロールなしで1画面に収まるように (horizontal wrapping) */
+            justify-content: center;
             gap: 20px; /* 各セグメント間のスペース */
             margin-bottom: 20px;
         }
         .segment-kanji-pair {
             display: flex;
-            flex-direction: row; /* セグメントの中身を横一列に表示 */
+            flex-direction: column; /* セグメントの中身を縦に並べる */
             justify-content: center; /* 中身を中央揃え */
             align-items: center;
             padding: 10px;
@@ -100,34 +99,37 @@
             background-color: transparent; /* 背景色を透明に */
             box-shadow: none; /* 影を削除 */
             border-radius: 5px;
-            flex: 0 0 auto;
-            min-width: 120px; /* 各セグメントの最小幅 */
-            max-width: 90%; /* スマートフォン対応のため最大幅を設定 */
+            flex: 1 1 22%; /* Adjust flex-basis for 3-4 items on iPhone 15 size */
+            min-width: 100px; /* 各セグメントの最小幅 */
+            max-width: 25%; /* 各セグメントの最大幅 */
         }
-        .display-segment { font-size: 1em; color: #888; margin-right: 10px; } /* 横並びのため調整 */
-        .display-kanji { font-size: 2.5em; font-weight: bold; color: #0056b3; margin-right: 10px; } /* 横並びのため調整 */
-        .display-meaning { font-size: 1em; color: #666; }
+        .display-segment { font-size: 1em; color: #888; margin-bottom: 5px; } /* 縦並びのため調整 */
+        .display-kanji { font-size: 2.5em; font-weight: bold; color: #0056b3; margin-bottom: 5px; } /* 縦並びのため調整 */
+        .display-meaning {
+            font-size: 1.1em; /* Horizontally larger by increasing font size */
+            color: #666;
+            text-align: center; /* Ensure meaning text is centered */
+            width: 100%; /* Take full available width */
+        }
 
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
-            /* For 100vh total, 10vh top padding, 10vh bottom padding. Remaining 80vh for header, main, footer. */
-            /* Header: 16vh, Footer: 24vh initially. That's 40vh of the 80vh remaining. */
             main { margin: 10px; padding: 15px; }
-            header { height: 10vh; /* Adjusted for smaller screens */ }
-            footer { height: 15vh; /* Adjusted for smaller screens */ }
+            header { height: 20vh; /* Adjusted for smaller screens */ }
+            footer { height: 20vh; /* Adjusted for smaller screens */ }
             .generated-name-result h2 { font-size: 1.8em; }
             .display-kanji { font-size: 2.2em; }
-            .segment-kanji-pair { flex-direction: row; /* Ensure it stays horizontal on smaller screens */
-            }
+            .kanji-segments-area { gap: 10px; }
+            .segment-kanji-pair { flex: 1 1 30%; /* Adjust for 3 items per row on tablets */ }
         }
         @media (max-width: 480px) {
             main { margin: 5px; padding: 10px; }
-            header { height: 7vh; /* Further adjusted for very small screens */ }
-            footer { height: 11vh; /* Further adjusted for very small screens */ }
+            header { height: 15vh; /* Further adjusted for very small screens */ }
+            footer { height: 15vh; /* Further adjusted for very small screens */ }
             header h1 { font-size: 1.5em; }
             .generated-name-result h2 { font-size: 1.5em; }
             .display-kanji { font-size: 2em; }
-            .segment-kanji-pair { min-width: 100px; max-width: 150px; } /* Adjust segment width */
+            .segment-kanji-pair { flex: 1 1 45%; /* Adjust for 2 items per row on phones */ }
         }
 
         /* Print specific styles */
@@ -155,8 +157,8 @@
             }
             h1 { color: black; text-align: center; padding: 10px 0; margin: 0; border-bottom: 1px solid #ccc; page-break-after: avoid; }
             .generated-name-result { border: 1px solid #eee; page-break-inside: avoid; margin-bottom: 15px; padding: 10px; }
-            .kanji-segments-area { justify-content: flex-start; gap: 10px; flex-wrap: wrap; flex-direction: column; } /* Ensure column layout for segments in print */
-            .segment-kanji-pair { min-width: unset; border: none; background-color: transparent; padding: 0; flex: 0 0 auto; flex-direction: row; } /* Ensure row layout for content within segments in print */
+            .kanji-segments-area { justify-content: flex-start; gap: 10px; flex-wrap: wrap; flex-direction: row; } /* Ensure row layout for segments in print */
+            .segment-kanji-pair { min-width: unset; border: none; background-color: transparent; padding: 0; flex: 0 0 auto; flex-direction: column; } /* Ensure column layout for content within segments in print */
             .display-segment, .display-meaning { font-size: 0.9em; }
             .display-kanji { font-size: 1.8em; color: #000; }
         }
@@ -164,6 +166,7 @@
 </head>
 <body>
     <header>
+        <h1>Generated Japanese Names</h1>
     </header>
     <main id="resultsContainer">
         <!-- Results will be injected here by result_script.js -->
