@@ -23,7 +23,7 @@
             height: 30vh; /* Fixed height for header */
             flex-shrink: 0; /* Prevent header from shrinking */
             background-image: url('header_bg.jpg'); /* 背景画像 */
-            background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
+            background-size: contain; /* 横幅を画面に合わせてかならず横が全部表示されるように維持 */
             background-repeat: no-repeat; /* 繰り返しなし */
             background-position: center;
             display: flex;
@@ -35,7 +35,8 @@
             box-shadow: none; /* 影を削除 */
         }
         header h1 {
-            display: none; /* Removed the title as requested */
+            margin: 0;
+            padding: 20px;
         }
         main {
             flex: 1; /* メインコンテンツが残りのスペースを埋める */
@@ -51,7 +52,7 @@
             height: 40vh; /* Fixed height for footer */
             flex-shrink: 0; /* Prevent footer from shrinking */
             background-image: url('footer_bg.jpg'); /* 背景画像 */
-            background-size: 100% 100%; /* 縦横比を崩してでも横幅いっぱいに表示 */
+            background-size: cover; /* 画像をカバーするよう維持 */
             background-position: center;
             display: flex;
             align-items: center;
@@ -81,68 +82,75 @@
             margin-bottom: 20px;
             font-size: 2em;
         }
-        .kanji-segments-area {
-            display: flex;
-            flex-direction: row; /* Changed to row */
-            flex-wrap: wrap; /* スマートフォンでスクロールなしで1画面に収まるように (horizontal wrapping) */
-            justify-content: center;
-            gap: 20px; /* 各セグメント間のスペース */
-            margin-bottom: 20px;
+        .kanji-segments-table {
+            width: 100%;
+            max-width: 360px; /* Fixed width for iPhone 15 display */
+            margin: 20px auto;
+            border-collapse: collapse;
+            table-layout: fixed; /* Ensures column widths are respected */
+            padding: 0; /* Minimize padding */
         }
-        .segment-kanji-pair {
-            display: grid; /* Changed to grid */
-            grid-template-columns: auto auto 1fr; /* Set grid columns */
-            gap: 10px; /* Add gap for grid */
-            align-items: center;
-            padding: 10px;
-            border: none; /* 不要な枠線を削除 */
-            background-color: transparent; /* 背景色を透明に */
-            box-shadow: none; /* 影を削除 */
-            border-radius: 5px;
-            flex: 0 0 auto;
-            min-width: 120px; /* 各セグメントの最小幅 */
-            max-width: 90%; /* スマートフォン対応のため最大幅を設定 */
+        .kanji-segments-table th, .kanji-segments-table td {
+            padding: 8px; /* Minimize padding */
+            text-align: center;
+            border: 1px solid #ddd;
         }
-        .display-segment { 
-            font-size: 1em; 
-            color: #888; 
-            /* Removed margin-right */
-        } 
-        .display-kanji { 
-            font-size: 2.5em; 
-            font-weight: bold; 
-            color: #0056b3; 
-            /* Removed margin-right */
-        } 
-        .display-meaning { 
-            font-size: 1em; 
-            color: #666; 
-            text-align: left; /* Changed to left */
-            /* Removed width: 100%; */
+        .kanji-segments-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .kanji-segments-table .segment-cell {
+            font-size: 1em;
+            color: #888;
+            width: 80px; /* Fixed width */
+        }
+        .kanji-segments-table .kanji-cell {
+            font-size: 2em;
+            font-weight: bold;
+            color: #0056b3;
+            width: 80px; /* Fixed width */
+        }
+        .kanji-segments-table .meaning-cell {
+            font-size: 1.1em;
+            color: #666;
+            text-align: left;
+            width: 200px; /* Fixed width */
+            word-wrap: break-word;
         }
 
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             main { margin: 10px; padding: 15px; }
-            header { height: 15vh; /* Adjusted */ }
-            footer { height: 20vh; /* Adjusted */ }
+            header { height: 20vh; /* Adjusted for smaller screens */ }
+            footer { height: 30vh; /* Adjusted for smaller screens */ }
             .generated-name-result h2 { font-size: 1.8em; }
-            .display-kanji { font-size: 2.2em; }
-            .segment-kanji-pair { flex-direction: row; /* Ensure it stays horizontal on smaller screens */
-            }
+            .kanji-segments-table { max-width: 95%; }
+            .kanji-segments-table .meaning-cell { width: auto; }
         }
         @media (max-width: 480px) {
             main { margin: 5px; padding: 10px; }
-            header { height: 10vh; /* Adjusted */ }
-            footer { height: 15vh; /* Adjusted */ }
+            header { height: 15vh; /* Further adjusted for very small screens */ }
+            footer { height: 20vh; /* Further adjusted for very small screens */ }
             header h1 { font-size: 1.5em; }
             .generated-name-result h2 { font-size: 1.5em; }
-            .display-kanji { font-size: 2em; }
-            .segment-kanji-pair { 
-                grid-template-columns: 1fr; /* Stack vertically */
-                text-align: center;
+            .kanji-segments-table {
+                max-width: 100%;
+                table-layout: auto; /* Allow table layout to adjust */
             }
-            .display-meaning { text-align: center; } /* Center meaning text */
+            .kanji-segments-table th, .kanji-segments-table td {
+                display: block; /* Stack cells vertically */
+                width: 100%;
+                box-sizing: border-box;
+                text-align: left;
+            }
+            .kanji-segments-table th {
+                display: none; /* Hide table headers on very small screens */
+            }
+            /* Emulate data-label for accessibility on stacked cells */
+            .kanji-segments-table td:nth-of-type(1):before { content: "Alphabet: "; font-weight: bold; }
+            .kanji-segments-table td:nth-of-type(2):before { content: "Kanji: "; font-weight: bold; }
+            .kanji-segments-table td:nth-of-type(3):before { content: "Meaning: "; font-weight: bold; }
+            .kanji-segments-table .meaning-cell { width: auto; }
         }
 
         /* Print specific styles */
@@ -156,7 +164,6 @@
                 display: block; /* Override flex for print */
                 height: auto; /* Allow height to adjust for print */
                 overflow: visible; /* Allow content to flow for print */
-                padding: 0; /* Remove padding for print */
             }
             header, footer { display: none !important; } /* Hide header/footer in print */
             main {
@@ -170,24 +177,23 @@
             }
             h1 { color: black; text-align: center; padding: 10px 0; margin: 0; border-bottom: 1px solid #ccc; page-break-after: avoid; }
             .generated-name-result { border: 1px solid #eee; page-break-inside: avoid; margin-bottom: 15px; padding: 10px; }
-            .kanji-segments-area { 
-                justify-content: flex-start; 
-                gap: 10px; 
-                flex-wrap: wrap; 
-                flex-direction: row; /* Ensure row layout for segments in print */
+            .kanji-segments-table {
+                max-width: none;
+                border-collapse: collapse;
+                table-layout: auto; /* Adjust table layout for print */
             }
-            .segment-kanji-pair { 
-                min-width: unset; 
-                border: none; 
-                background-color: transparent; 
-                padding: 0; 
-                flex: 0 0 auto; 
-                display: flex; /* Changed to flex */
-                flex-direction: column; /* Changed to column */
-                align-items: center; /* Center items */
+            .kanji-segments-table th, .kanji-segments-table td {
+                display: table-cell; /* Ensure table cell display in print */
+                width: auto; /* Allow width to adjust */
+                text-align: center;
+                border: 1px solid #ddd;
             }
-            .display-segment, .display-meaning { font-size: 0.9em; }
-            .display-kanji { font-size: 1.8em; color: #000; }
+            .kanji-segments-table .meaning-cell {
+                text-align: left; /* Maintain left alignment for meaning */
+                width: 200px; /* Keep fixed width for meaning column in print if possible */
+                word-wrap: break-word;
+            }
+            .kanji-segments-table td:before { content: none; } /* Hide pseudo elements for print */
         }
     </style>
 </head>

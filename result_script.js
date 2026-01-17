@@ -45,33 +45,42 @@ async function renderResults() {
     const { personState, selectedLanguage } = JSON.parse(storedData);
 
     if (personState && personState.alphabeticalName) {
-        let kanjiSegmentsHtml = '';
+        let tableRowsHtml = '';
 
         personState.segments.forEach(seg => {
             const typedKanji = seg.typedKanji;
             // Use the stored kanjiMeaningEntry, if available, otherwise try to find it again
-            let kanjiEntry = seg.kanjiMeaningEntry; 
+            let kanjiEntry = seg.kanjiMeaningEntry;
             if (!kanjiEntry && typedKanji) {
                 kanjiEntry = kanjiMeanings.find(entry => entry.Kanji === typedKanji);
             }
-            
+
             const meaningText = kanjiEntry ? getMeaningFromKanjiEntry(kanjiEntry, selectedLanguage) : 'N/A';
 
-            kanjiSegmentsHtml += `
-                <div class="segment-kanji-pair">
-                    <div class="display-segment">${seg.alphabetical || ''}</div>
-                    <div class="display-kanji">${typedKanji || '??'}</div>
-                    <div class="display-meaning">${meaningText}</div>
-                </div>
+            tableRowsHtml += `
+                <tr>
+                    <td class="segment-cell" data-label="Alphabet">${seg.alphabetical || ''}</td>
+                    <td class="kanji-cell" data-label="Kanji">${typedKanji || '??'}</td>
+                    <td class="meaning-cell" data-label="Meaning">${meaningText}</td>
+                </tr>
             `;
         });
 
         resultsContainer.innerHTML = `
             <div class="generated-name-result">
                 <h2>Original Name: ${personState.alphabeticalName}</h2>
-                <div class="kanji-segments-area">
-                    ${kanjiSegmentsHtml}
-                </div>
+                <table class="kanji-segments-table">
+                    <thead>
+                        <tr>
+                            <th>Alphabet</th>
+                            <th>Kanji</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRowsHtml}
+                    </tbody>
+                </table>
             </div>
         `;
     } else {
@@ -81,4 +90,4 @@ async function renderResults() {
 
 document.addEventListener('DOMContentLoaded', renderResults);
 
-console.log("Created result_script.js to display generated names.");
+console.log("Updated result_script.js to display generated names in a table format.");
