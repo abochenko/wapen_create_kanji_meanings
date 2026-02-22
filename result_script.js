@@ -59,9 +59,9 @@ async function renderResults() {
                 <table class="kanji-segments-table">
                     <thead>
                         <tr>
-                            <th>Alpha</th>
-                            <th>Kanji</th>
-                            <th>Meaning</th>
+                            <th class="segment-cell">Alpha</th>
+                            <th class="kanji-cell">Kanji</th>
+                            <th class="meaning-cell">Meaning</th>
                         </tr>
                     </thead>
                     <tbody>
