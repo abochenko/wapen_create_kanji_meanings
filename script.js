@@ -104,7 +104,7 @@ function addSegmentField() {
         <label for="alphabeticalSegment1_${newSegmentIndex + 1}">Segment (B):</label>
         <input type="text" id="alphabeticalSegment1_${newSegmentIndex + 1}" placeholder="e.g., MI">
         <label for="kanjiInput1_${newSegmentIndex + 1}">Kanji (C):</label>
-        <input type="text" id="kanjiInput1_${newSegmentIndex + 1}" placeholder="e.g., \u821e"> <!-- Fixed placeholder to 舞 -->
+        <input type="text" id="kanjiInput1_${newSegmentIndex + 1}" placeholder="e.g., 舞"> <!-- Fixed placeholder to 舞 -->
         <div id="kanjiMeaningDisplay1_${newSegmentIndex + 1}" class="typed-kanji-meaning"></div>
     `;
     segmentsContainer.appendChild(segmentPairDiv);
