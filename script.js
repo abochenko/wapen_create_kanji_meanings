@@ -13,14 +13,38 @@ async function loadKanjiMeanings() {
     try {
         const response = await fetch('kanji_meanings.csv');
         const text = await response.text();
-        const lines = text.trim().split('\n');
-        const headers = lines[0].split(',');
+        const lines = text.trim().split(/\r?\n/);
+        const parseCSVLine = (line) => {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    if (inQuotes && line[i + 1] === '"') { // Handle escaped quotes ""
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        };
+
+        const headers = parseCSVLine(lines[0]);
 
         kanjiMeanings = lines.slice(1).map(line => {
-            const values = line.split(',');
+            const values = parseCSVLine(line);
             let obj = {};
             headers.forEach((header, i) => {
-                obj[header.trim()] = values[i].trim();
+                obj[header] = values[i] || '';
             });
             return obj;
         });
