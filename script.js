@@ -11,7 +11,7 @@ let personState = {
 // Function to load and parse the CSV file
 async function loadKanjiMeanings() {
     try {
-        const response = await fetch('kanji_meanings.csv');
+        const response = await fetch('kanji_meanings.csv', { cache: 'no-cache' });
         const text = await response.text();
         const lines = text.trim().split(/\r?\n/);
         const parseCSVLine = (line) => {
